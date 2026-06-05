@@ -116,6 +116,16 @@
         <div class="empty-icon">🔍</div>
         <h3>未找到相关资源</h3>
         <p>试试其他关键词，或检查设置中的搜索来源是否已启用</p>
+        <div v-if="hotTerms.length > 0" class="empty-suggestions">
+          <span class="empty-suggestions__label">大家都在搜：</span>
+          <button
+            v-for="term in hotTerms.slice(0, 5)"
+            :key="term"
+            class="empty-suggestions__tag"
+            @click="quickSearch(term)">
+            {{ term }}
+          </button>
+        </div>
       </div>
     </section>
 
@@ -159,6 +169,7 @@ onMounted(async () => {
   }
   if (doubanHotRef.value) await doubanHotRef.value.init();
   if (hotSearchRef.value) await hotSearchRef.value.init();
+  fetchHotTerms();
 });
 
 // SEO 元数据
@@ -216,6 +227,19 @@ const sortType = ref<"default" | "date-desc" | "date-asc" | "name-asc" | "name-d
 const filterPlatform = ref<string>("all");
 const initialVisible = 3;
 const expandedSet = ref<Set<string>>(new Set());
+
+// 空状态热搜推荐
+const hotTerms = ref<string[]>([]);
+
+async function fetchHotTerms() {
+  try {
+    const res = await fetch("/api/hot-searches?limit=5");
+    const data = await res.json();
+    if (data.code === 0) {
+      hotTerms.value = data.data.hotSearches.map((s: any) => s.term);
+    }
+  } catch {}
+}
 
 // 使用搜索 composable
 const {
@@ -792,6 +816,33 @@ function visibleSorted(items: any[]) {
   font-size: 14px;
   color: var(--text-secondary);
   line-height: 1.6;
+}
+
+.empty-suggestions {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+}
+.empty-suggestions__label {
+  font-size: 13px;
+  color: var(--text-tertiary);
+}
+.empty-suggestions__tag {
+  font-size: 13px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border-light);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.empty-suggestions__tag:hover {
+  border-color: var(--primary);
+  color: var(--primary);
 }
 
 /* 错误提示 */
