@@ -26,9 +26,6 @@
         <ErrorBoundary message="热搜加载失败">
           <HotSearchSection ref="hotSearchRef" :on-search="quickSearch" />
         </ErrorBoundary>
-        <ErrorBoundary message="排行榜加载失败">
-          <HotRanking @search="quickSearch" />
-        </ErrorBoundary>
       </aside>
     </div>
 
