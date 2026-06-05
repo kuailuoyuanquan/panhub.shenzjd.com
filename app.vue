@@ -73,6 +73,12 @@
 <script setup lang="ts">
 import { ALL_PLUGIN_NAMES } from "./config/plugins";
 import channelsConfig from "~/config/channels.json";
+import darkModeCss from "~/assets/css/dark-mode.css?raw";
+
+// 将暗色模式 CSS 注入到 <head>，绕过 Vite scoped CSS 处理
+useHead({
+  style: [{ innerHTML: darkModeCss }],
+});
 
 const { settings, loadSettings, saveSettings, resetToDefault } = useSettings();
 const auth = useAuth();
@@ -156,10 +162,23 @@ provide('showToast', showToast);
   --bg-primary: #fffdf8;
   --bg-secondary: #f7f3ea;
   --bg-glass: rgba(255, 253, 248, 0.86);
+  --bg-glass-strong: rgba(255, 253, 248, 0.96);
+  --bg-surface: rgba(255, 255, 255, 0.72);
+  --bg-surface-elevated: rgba(255, 255, 255, 0.6);
+  --bg-surface-subtle: rgba(255, 255, 255, 0.3);
+  --bg-input: rgba(255, 255, 255, 0.5);
+  --bg-hover: rgba(15, 118, 110, 0.04);
+  --bg-active: rgba(15, 118, 110, 0.08);
+  --bg-skeleton: #f0f0f0;
+  --bg-skeleton-shine: rgba(255, 255, 255, 0.6);
 
   --text-primary: #1f2937;
   --text-secondary: #4b5563;
   --text-tertiary: #9ca3af;
+  --text-on-primary: #ffffff;
+  --text-on-warning: #ffffff;
+  --text-on-success: #ffffff;
+  --text-on-danger: #ffffff;
 
   --border-light: #e5dfd0;
   --border-medium: #d4c7ab;
@@ -168,6 +187,12 @@ provide('showToast', showToast);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+
+  --primary-glow: rgba(15, 118, 110, 0.3);
+  --warning-glow: rgba(245, 158, 11, 0.3);
+  --success-glow: rgba(16, 185, 129, 0.3);
+  --danger-glow: rgba(239, 68, 68, 0.3);
+  --accent-glow: rgba(245, 158, 11, 0.3);
 
   --radius-sm: 8px;
   --radius-md: 12px;
@@ -514,112 +539,6 @@ button {
 
   .blob {
     filter: blur(40px);
-  }
-}
-
-/* 深色模式 - Obsidian Tide 主题 */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-primary: #0d1117;
-    --bg-secondary: #161b22;
-    --bg-glass: rgba(13, 17, 23, 0.82);
-    --text-primary: #e6edf3;
-    --text-secondary: #a1aab5;
-    --text-tertiary: #7d8794;
-    --border-light: #21262d;
-    --border-medium: #30363d;
-    --primary: #2dd4bf;
-    --primary-dark: #14b8a6;
-    --secondary: #fbbf24;
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
-  }
-
-  body {
-    background:
-      radial-gradient(ellipse at 10% 0%, rgba(13, 148, 136, 0.12) 0%, transparent 50%),
-      radial-gradient(ellipse at 85% 5%, rgba(217, 119, 6, 0.08) 0%, transparent 40%),
-      #0a0e14;
-  }
-
-  .blob {
-    opacity: 0.12;
-  }
-
-  .blob-1 {
-    background: linear-gradient(135deg, #0d9488, #2dd4bf);
-  }
-
-  .blob-2 {
-    background: linear-gradient(135deg, #d97706, #fbbf24);
-  }
-
-  .blob-3 {
-    background: linear-gradient(135deg, #0891b2, #2dd4bf);
-  }
-
-  .header {
-    background: rgba(13, 17, 23, 0.78);
-    border-bottom: 1px solid var(--border-light);
-    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
-  }
-
-  .brand-text {
-    background: linear-gradient(135deg, #2dd4bf, #fbbf24);
-    -webkit-background-clip: text;
-    background-clip: text;
-  }
-
-  .btn-icon {
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid var(--border-light);
-    color: var(--text-secondary);
-  }
-
-  .btn-icon:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: var(--border-medium);
-    color: var(--text-primary);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  }
-
-  .github-btn {
-    color: var(--text-tertiary);
-  }
-
-  .github-btn:hover {
-    color: var(--text-primary);
-  }
-
-  .toast {
-    background: var(--bg-secondary);
-    border-color: var(--border-light);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-  }
-
-  .toast.info {
-    color: var(--primary);
-    border-left-color: var(--primary);
-  }
-
-  .toast.success {
-    color: #34d399;
-    border-left-color: #34d399;
-  }
-
-  .toast.error {
-    color: #f87171;
-    border-left-color: #f87171;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: var(--border-medium);
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--text-tertiary);
   }
 }
 

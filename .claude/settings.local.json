@@ -48,7 +48,9 @@
       "Read(//private/tmp/**)",
       "Bash(npm init *)",
       "Bash(npm install *)",
-      "Bash(node -e ' *)"
+      "Bash(node -e ' *)",
+      "mcp__plugin_playwright_playwright__browser_run_code_unsafe",
+      "Bash(pkill -f \"nuxt dev\")"
     ]
   }
 }

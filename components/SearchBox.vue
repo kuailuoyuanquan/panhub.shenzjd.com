@@ -1,7 +1,7 @@
 <template>
   <section class="search">
     <div class="search-container">
-      <div class="search-box" :class="{ focused: isFocused, loading: loading }">
+      <div class="search-box" data-theme-part="search-box" :class="{ focused: isFocused, loading: loading }">
         <div class="search-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="11" cy="11" r="8"></circle>
@@ -346,7 +346,7 @@ onMounted(() => {
 
 /* 幽灵按钮 - 透明背景 */
 .action-btn.ghost {
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--bg-input);
   color: var(--text-secondary);
   border: 1px solid var(--border-light);
   padding: 8px;
@@ -516,99 +516,6 @@ onMounted(() => {
   .action-btn {
     padding: 6px 8px;
     font-size: 12px;
-  }
-}
-
-/* 深色模式支持 */
-@media (prefers-color-scheme: dark) {
-  .search-box {
-    background: var(--bg-glass);
-    border-color: var(--border-light);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-  }
-
-  .search-box::before {
-    background: linear-gradient(90deg, var(--primary), var(--secondary));
-  }
-
-  .search-box.focused {
-    border-color: var(--primary);
-    box-shadow: 0 8px 32px rgba(13, 148, 136, 0.18);
-  }
-
-  .search-box.loading {
-    border-color: var(--primary);
-  }
-
-  @keyframes searchPulse {
-    0%, 100% { box-shadow: 0 8px 32px rgba(13, 148, 136, 0.16); }
-    50% { box-shadow: 0 8px 40px rgba(13, 148, 136, 0.28); }
-  }
-
-  .search-icon {
-    color: var(--text-tertiary);
-  }
-
-  .search-box.focused .search-icon {
-    color: var(--primary);
-  }
-
-  .search-input {
-    color: var(--text-primary);
-  }
-
-  .search-input::placeholder {
-    color: var(--text-tertiary);
-  }
-
-  .action-btn.primary {
-    background: linear-gradient(135deg, #0d9488, #14b8a6);
-    color: #042f2e;
-    box-shadow: 0 4px 12px rgba(13, 148, 136, 0.35);
-  }
-
-  .action-btn.primary:hover:not(:disabled) {
-    box-shadow: 0 8px 18px rgba(13, 148, 136, 0.4);
-  }
-
-  .action-btn.ghost {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: var(--border-light);
-    color: var(--text-secondary);
-  }
-
-  .action-btn.ghost:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: var(--border-medium);
-    color: var(--text-primary);
-  }
-
-  .action-btn.ghost:active {
-    background: rgba(255, 255, 255, 0.04);
-  }
-
-  .action-btn.pause {
-    background: linear-gradient(135deg, #d97706, #fbbf24);
-    color: #451a03;
-  }
-
-  .action-btn.resume {
-    background: linear-gradient(135deg, #059669, #34d399);
-    color: #022c22;
-  }
-
-  .action-btn.reset {
-    background: linear-gradient(135deg, #dc2626, #f87171);
-    color: #450a0a;
-  }
-
-  .paused-indicator {
-    color: #fbbf24;
-  }
-
-  .loading-spinner {
-    border-color: rgba(13, 148, 136, 0.2);
-    border-top-color: var(--primary);
   }
 }
 

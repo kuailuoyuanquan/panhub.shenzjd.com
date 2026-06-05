@@ -1,7 +1,7 @@
 <template>
-  <div class="result-card">
+  <div class="result-card" data-theme-part="result-card">
     <!-- 卡片头部 -->
-    <div class="card-header">
+    <div class="card-header" data-theme-part="card-header">
       <div class="platform-badge" :style="{ background: color }">
         <img class="platform-icon" :src="icon" :alt="title" />
       </div>
@@ -73,7 +73,7 @@
     </ul>
 
     <!-- 底部展开按钮 -->
-    <div v-if="!expanded && items.length > initialVisible" class="card-footer">
+    <div v-if="!expanded && items.length > initialVisible" class="card-footer" data-theme-part="card-footer">
       <button class="load-more-btn" @click="$emit('toggle')">
         显示更多 ({{ items.length - initialVisible }})
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -112,7 +112,7 @@ function formatDate(d?: string) {
 <style scoped>
 /* 结果卡片主体 - 玻璃拟态设计 */
 .result-card {
-  background: rgba(255, 255, 255, 0.72);
+  background: var(--bg-surface);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--border-light);
@@ -134,7 +134,7 @@ function formatDate(d?: string) {
   align-items: center;
   gap: 12px;
   padding: 14px 16px;
-  background: rgba(255, 255, 255, 0.6);
+  background: var(--bg-surface-elevated);
   border-bottom: 1px solid var(--border-light);
   position: relative;
 }
@@ -263,7 +263,7 @@ function formatDate(d?: string) {
 }
 
 .resource-item:hover {
-  background: rgba(15, 118, 110, 0.04);
+  background: var(--bg-hover);
 }
 
 .resource-content {
@@ -397,7 +397,7 @@ function formatDate(d?: string) {
 /* 卡片底部 */
 .card-footer {
   padding: 12px 16px;
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--bg-surface-subtle);
   border-top: 1px solid var(--border-light);
   text-align: center;
 }
@@ -475,110 +475,6 @@ function formatDate(d?: string) {
   .load-more-btn {
     padding: 8px 12px;
     font-size: 13px;
-  }
-}
-
-/* 深色模式支持 */
-@media (prefers-color-scheme: dark) {
-  .result-card {
-    background: rgba(22, 27, 34, 0.7);
-    border-color: var(--border-light);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-  }
-
-  .result-card:hover {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-  }
-
-  .card-header {
-    background: rgba(22, 27, 34, 0.5);
-    border-bottom-color: var(--border-light);
-  }
-
-  .card-header::after {
-    background: linear-gradient(90deg, var(--primary), transparent 70%);
-    opacity: 0.2;
-  }
-
-  .platform-badge {
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-  }
-
-  .resource-item {
-    border-bottom-color: var(--border-light);
-  }
-
-  .resource-item:hover {
-    background: rgba(13, 148, 136, 0.06);
-  }
-
-  .resource-link {
-    color: var(--primary);
-  }
-
-  .resource-link:hover {
-    color: var(--primary-dark);
-  }
-
-  .meta-tag {
-    background: var(--bg-secondary);
-    border-color: var(--border-light);
-    color: var(--text-secondary);
-  }
-
-  .meta-tag.date {
-    background: rgba(13, 148, 136, 0.1);
-    border-color: rgba(13, 148, 136, 0.18);
-    color: var(--primary);
-  }
-
-  .meta-tag.password {
-    background: rgba(52, 211, 153, 0.1);
-    border-color: rgba(52, 211, 153, 0.18);
-    color: #34d399;
-  }
-
-  .expand-btn {
-    background: var(--bg-secondary);
-    border-color: var(--border-light);
-    color: var(--text-secondary);
-  }
-
-  .expand-btn:hover {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: var(--border-medium);
-    color: var(--text-primary);
-  }
-
-  .copy-btn {
-    background: var(--bg-secondary);
-    border-color: var(--border-light);
-    color: var(--text-secondary);
-  }
-
-  .copy-btn:hover {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: var(--border-medium);
-    color: var(--text-primary);
-  }
-
-  .card-footer {
-    background: rgba(22, 27, 34, 0.4);
-    border-top-color: var(--border-light);
-  }
-
-  .load-more-btn {
-    background: linear-gradient(135deg, #0d9488, #14b8a6);
-    color: #042f2e;
-    box-shadow: 0 4px 12px rgba(13, 148, 136, 0.35);
-  }
-
-  .load-more-btn:hover {
-    box-shadow: 0 6px 16px rgba(13, 148, 136, 0.45);
-  }
-
-  .resource-list::-webkit-scrollbar-thumb {
-    background: var(--border-medium);
   }
 }
 

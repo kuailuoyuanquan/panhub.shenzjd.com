@@ -1,5 +1,5 @@
 <template>
-  <section class="result-header">
+  <section class="result-header" data-theme-part="result-header">
     <!-- 左侧平台过滤器 -->
     <div class="left-section" v-if="hasResults">
       <div class="platform-filters">
@@ -96,7 +96,7 @@ const currentSort = computed(() =>
   align-items: center;
   gap: 16px;
   padding: 10px 12px;
-  background: rgba(255, 255, 255, 0.62);
+  background: var(--bg-surface);
   backdrop-filter: blur(8px);
   border: 1px solid var(--border-light);
   border-radius: 14px;
@@ -320,76 +320,6 @@ const currentSort = computed(() =>
 
   .sort-select {
     min-width: 70px;
-  }
-}
-
-/* 深色模式支持 */
-@media (prefers-color-scheme: dark) {
-  .result-header {
-    background: rgba(22, 27, 34, 0.65);
-    border-color: var(--border-light);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-  }
-
-  .filter-pill {
-    background: var(--bg-secondary);
-    border-color: var(--border-light);
-    color: var(--text-secondary);
-  }
-
-  .filter-pill:hover {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: var(--border-medium);
-    color: var(--text-primary);
-  }
-
-  .filter-pill.active {
-    background: linear-gradient(135deg, #0d9488, #14b8a6);
-    color: #042f2e;
-    border-color: transparent;
-    box-shadow: 0 4px 12px rgba(13, 148, 136, 0.35);
-  }
-
-  .loading-indicator {
-    background: rgba(13, 148, 136, 0.12);
-    border-color: rgba(13, 148, 136, 0.2);
-    color: var(--primary);
-  }
-
-  .pulse-dot {
-    background: var(--primary);
-  }
-
-  .stat-item {
-    background: var(--bg-secondary);
-    border-color: var(--border-light);
-  }
-
-  .stat-value {
-    color: var(--primary);
-  }
-
-  .sort-wrapper {
-    background: var(--bg-secondary);
-    border-color: var(--border-light);
-  }
-
-  .sort-wrapper:hover {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: var(--border-medium);
-  }
-
-  .sort-wrapper svg {
-    color: var(--text-tertiary);
-  }
-
-  .sort-select {
-    color: var(--text-primary);
-  }
-
-  .sort-select option {
-    background: var(--bg-secondary);
-    color: var(--text-primary);
   }
 }
 
