@@ -1,5 +1,6 @@
 import { defineEventHandler, readBody, createError } from "h3";
 import { getOrCreateHotSearchService } from "../core/services/hotSearchService";
+import { loggers } from "../core/utils/logger";
 
 interface RequestBody {
   term: string;
@@ -31,6 +32,7 @@ export default defineEventHandler(async (event) => {
 
   const service = getOrCreateHotSearchService();
   await service.recordSearch(term);
+  loggers.hotSearch.info(`记录热搜: "${term}"`);
 
   return {
     code: 0,
