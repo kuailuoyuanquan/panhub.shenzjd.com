@@ -445,9 +445,14 @@ export class SearchService {
   }
 
   private sortResultsByTimeDesc(arr: SearchResult[]) {
-    arr.sort(
-      (x, y) => new Date(y.datetime).getTime() - new Date(x.datetime).getTime()
-    );
+    // 缺失/非法 datetime 不能直接 new Date(...).getTime()（会得 NaN），
+    // 否则比较器返回 NaN 让排序结果未定义。统一视为 0（最旧），排到末尾。
+    const toTime = (value?: string): number => {
+      if (!value) return 0;
+      const t = Date.parse(value);
+      return Number.isFinite(t) ? t : 0;
+    };
+    arr.sort((x, y) => toTime(y.datetime) - toTime(x.datetime));
   }
 
   private getResultSource(_r: SearchResult): string {

@@ -319,4 +319,18 @@ describe("SearchService warnings", () => {
     expect(result.response.total).toBe(2);
     expect(result.warnings).toEqual([]);
   });
+
+  it("sorts newest-first and puts missing-datetime entries last (no NaN breakage)", () => {
+    const service = createService(new EmptyPlugin("empty", 1));
+    const results: { title: string; datetime: string }[] = [
+      { title: "no-date", datetime: "" },
+      { title: "old", datetime: "2020-01-01T00:00:00.000Z" },
+      { title: "new", datetime: "2026-06-01T00:00:00.000Z" },
+    ];
+
+    (service as any).sortResultsByTimeDesc(results);
+
+    // 有日期的按时间倒序，无日期的排到最后，比较器不能产生 NaN
+    expect(results.map((r) => r.title)).toEqual(["new", "old", "no-date"]);
+  });
 });
